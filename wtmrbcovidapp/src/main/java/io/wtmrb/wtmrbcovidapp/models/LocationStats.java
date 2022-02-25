@@ -9,6 +9,18 @@ public class LocationStats {
         this.country = country;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public int getLatestTotalCases() {
+        return latestTotalCases;
+    }
+
     public void setState(String state) {
         this.state = state;
     }
