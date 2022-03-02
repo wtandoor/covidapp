@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
@@ -40,9 +41,12 @@ public class CoronaVirusDataServices {
 
         for (CSVRecord record : records) {
             LocationStats locationStat = new LocationStats();
-            locationStat.setState(record.get("Province_State"));
+            locationStat.setState(record.get("Combined_Key"));
             locationStat.setCountry(record.get("Country_Region"));
-            locationStat.setLatestTotalCase(Integer.parseInt(record.get(record.size() - 1)));
+            locationStat.setDate(Integer.parseInt(record.get("3/1/22")));
+            locationStat.setPrevDate(Integer.parseInt(record.get("2/28/22")));
+            locationStat.setLatestTotalCases(Integer.parseInt(record.get(record.size() - 1)));
+            locationStat.setDifference(locationStat.getDate() - locationStat.getPrevDate());
             newStats.add(locationStat);
         }
         this.allStats = newStats;
